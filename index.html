@@ -6,17 +6,38 @@
   <title>Malla Interaktiboa - Arkitektura Teknikoa</title>
   <style>
     body { font-family: sans-serif; padding: 20px; background-color: #f9f9f9; }
-    h2 { margin-top: 40px; }
+    h1 { text-align: center; }
+    .container {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 20px;
+      margin-top: 20px;
+    }
+    .year-column {
+      background: #ffffff;
+      padding: 10px;
+      border-radius: 8px;
+      box-shadow: 0 0 5px #ccc;
+    }
+    .year-title {
+      text-align: center;
+      font-weight: bold;
+      margin-bottom: 10px;
+    }
     .bloque {
-      margin-bottom: 20px;
-      padding-left: 10px;
+      margin-bottom: 12px;
+    }
+    .bloque-title {
+      font-weight: bold;
+      font-size: 14px;
+      margin-bottom: 6px;
     }
     .ramo {
       border: 1px solid #aaa;
       border-radius: 6px;
-      padding: 10px 14px;
-      margin: 6px;
-      display: inline-block;
+      padding: 8px;
+      margin: 4px 0;
+      display: block;
       cursor: pointer;
       transition: 0.3s;
     }
@@ -30,71 +51,98 @@
       opacity: 0.5;
       pointer-events: none;
     }
-    .ano1 { background-color: #a8cfff; }
-    .ano2 { background-color: #ffb3d1; }
-    .ano3 { background-color: #b3f0b3; }
-    .ano4 { background-color: #ffd699; }
+    .ano1 .ramo { background-color: #a8cfff; }
+    .ano2 .ramo { background-color: #ffb3d1; }
+    .ano3 .ramo { background-color: #b3f0b3; }
+    .ano4 .ramo { background-color: #ffd699; }
   </style>
 </head>
 <body>
 
 <h1>Malla Interaktiboa - Arkitektura Teknikoa</h1>
+<div class="container">
 
-<!-- Año 1 -->
-<div class="bloque">
-  <h2>1. Urtea - Urtekoak</h2>
-  <div class="ramo ano1" id="grafikoa1">Adierazpen Grafikoa I</div>
-  <div class="ramo ano1" id="eraikuntza1">Eraikuntza I</div>
-  <div class="ramo ano1" id="materialak1">Materialen Oinarriak I</div>
-</div>
-<div class="bloque">
-  <h2>1. Urtea - 1. Lauhilekoa</h2>
-  <div class="ramo ano1" id="fisika">Fisika Aplikatua</div>
-  <div class="ramo ano1" id="mate1">Oinarri Matematikoak I</div>
-</div>
-<div class="bloque">
-  <h2>1. Urtea - 2. Lauhilekoa</h2>
-  <div class="ramo ano1" id="ekonomia">Ekonomia</div>
-  <div class="ramo ano1" id="instalazioak1">Instalazioak I</div>
-  <div class="ramo ano1" id="mate2">Oinarri Matematikoak II</div>
-</div>
+  <!-- Año 1 -->
+  <div class="year-column ano1">
+    <div class="year-title">1. Urtea</div>
+    <div class="bloque"><div class="bloque-title">Urtekoak</div>
+      <div class="ramo" id="grafikoa1">Adierazpen Grafikoa I</div>
+      <div class="ramo" id="eraikuntza1">Eraikuntza I</div>
+      <div class="ramo" id="materialak1">Materialen Oinarriak I</div>
+    </div>
+    <div class="bloque"><div class="bloque-title">1. Lauhilekoa</div>
+      <div class="ramo" id="fisika">Fisika Aplikatua</div>
+      <div class="ramo" id="mate1">Oinarri Matematikoak I</div>
+    </div>
+    <div class="bloque"><div class="bloque-title">2. Lauhilekoa</div>
+      <div class="ramo" id="ekonomia">Enpresari Aplikaturiko Ekonomia</div>
+      <div class="ramo" id="instalazioak1">Instalazioak I</div>
+      <div class="ramo" id="mate2">Oinarri Matematikoak II</div>
+    </div>
+  </div>
 
-<!-- Año 2 -->
-<div class="bloque">
-  <h2>2. Urtea - Urtekoak</h2>
-  <div class="ramo ano2 bloqueado" id="eraikuntza2" data-prereq="eraikuntza1">Eraikuntza II</div>
-</div>
-<div class="bloque">
-  <h2>2. Urtea - 1. Lauhilekoa</h2>
-  <div class="ramo ano2 bloqueado" id="grafikoa2" data-prereq="grafikoa1">Adierazpen Grafikoa II</div>
-  <div class="ramo ano2 bloqueado" id="egiturak1" data-prereq="fisika">Egiturak I</div>
-  <div class="ramo ano2" id="historia">Eraikuntzaren Historia</div>
-  <div class="ramo ano2 bloqueado" id="materialak2" data-prereq="materialak1">Materialak II</div>
-</div>
-<div class="bloque">
-  <h2>2. Urtea - 2. Lauhilekoa</h2>
-  <div class="ramo ano2 bloqueado" id="instalazioak2" data-prereq="instalazioak1">Instalazioak II</div>
-</div>
+  <!-- Año 2 -->
+  <div class="year-column ano2">
+    <div class="year-title">2. Urtea</div>
+    <div class="bloque"><div class="bloque-title">Urtekoak</div>
+      <div class="ramo bloqueado" id="eraikuntza2" data-prereq="eraikuntza1">Eraikuntza II</div>
+    </div>
+    <div class="bloque"><div class="bloque-title">1. Lauhilekoa</div>
+      <div class="ramo bloqueado" id="grafikoa2" data-prereq="grafikoa1">Adierazpen Grafikoa II</div>
+      <div class="ramo bloqueado" id="egiturak1" data-prereq="fisika">Egiturak I</div>
+      <div class="ramo" id="historia">Eraikuntzaren Historia</div>
+      <div class="ramo bloqueado" id="materialak2" data-prereq="materialak1">Materialak II</div>
+    </div>
+    <div class="bloque"><div class="bloque-title">2. Lauhilekoa</div>
+      <div class="ramo bloqueado" id="instalazioak2" data-prereq="instalazioak1">Instalazioak II</div>
+      <div class="ramo" id="prebentzio">Prebentzioa eta Segurtasuna</div>
+      <div class="ramo" id="topografia">Zuinketak eta Topografia</div>
+      <div class="ramo" id="zuzenbidea">Zuzenbidea</div>
+    </div>
+  </div>
 
-<!-- Año 3 -->
-<div class="bloque">
-  <h2>3. Urtea - Urtekoak</h2>
-  <div class="ramo ano3 bloqueado" id="eraikuntza3" data-prereq="eraikuntza2">Eraikuntza III</div>
-</div>
-<div class="bloque">
-  <h2>3. Urtea - 1. Lauhilekoa</h2>
-  <div class="ramo ano3 bloqueado" id="egiturak2" data-prereq="egiturak1">Egiturak II</div>
-</div>
-<div class="bloque">
-  <h2>3. Urtea - 2. Lauhilekoa</h2>
-  <div class="ramo ano3 bloqueado" id="grafikoa3" data-prereq="grafikoa2">Adierazpen Grafikoa III</div>
-  <div class="ramo ano3 bloqueado" id="egiturak3" data-prereq="egiturak2">Egiturak III</div>
-</div>
+  <!-- Año 3 -->
+  <div class="year-column ano3">
+    <div class="year-title">3. Urtea</div>
+    <div class="bloque"><div class="bloque-title">Urtekoak</div>
+      <div class="ramo bloqueado" id="eraikuntza3" data-prereq="eraikuntza2">Eraikuntza III</div>
+      <div class="ramo" id="neurketak">Neurketak eta Aurrekontuak</div>
+    </div>
+    <div class="bloque"><div class="bloque-title">1. Lauhilekoa</div>
+      <div class="ramo bloqueado" id="egiturak2" data-prereq="egiturak1">Egiturak II</div>
+      <div class="ramo" id="lansegurtasuna">Laneko Segurtasuna</div>
+      <div class="ramo" id="plangintza">Lanen Plangintza</div>
+    </div>
+    <div class="bloque"><div class="bloque-title">2. Lauhilekoa</div>
+      <div class="ramo bloqueado" id="grafikoa3" data-prereq="grafikoa2">Adierazpen Grafikoa III</div>
+      <div class="ramo bloqueado" id="egiturak3" data-prereq="egiturak2">Egiturak III</div>
+      <div class="ramo" id="hirigintza">Hirigintza Kudeaketa</div>
+      <div class="ramo" id="proiektuak">Proiektu Teknikoak</div>
+    </div>
+  </div>
 
-<!-- Año 4 -->
-<div class="bloque">
-  <h2>4. Urtea - 1. Lauhilekoa</h2>
-  <div class="ramo ano4 bloqueado" id="eraikuntza4" data-prereq="eraikuntza3">Eraikuntza IV</div>
+  <!-- Año 4 -->
+  <div class="year-column ano4">
+    <div class="year-title">4. Urtea</div>
+    <div class="bloque"><div class="bloque-title">1. Lauhilekoa</div>
+      <div class="ramo bloqueado" id="eraikuntza4" data-prereq="eraikuntza3">Eraikuntza IV</div>
+      <div class="ramo" id="kalitatea">Eraikuntzaren Kalitatea</div>
+      <div class="ramo" id="gradulana">Gradu Amaierako Lana</div>
+      <div class="ramo" id="idatzizko">Idatzizko Komunikazioa (EU)</div>
+      <div class="ramo" id="peritazioa">Peritazioa eta Tasazioak</div>
+    </div>
+    <div class="bloque"><div class="bloque-title">2. Lauhilekoa</div>
+      <div class="ramo" id="ahozkoa">Ahozko Komunikazioa (EU)</div>
+      <div class="ramo" id="akustika">Akustika Arkitektonikoa</div>
+      <div class="ramo" id="bim">BIM Teknologia</div>
+      <div class="ramo" id="kalkulua">Egituren Kalkulua (Ordenagailuz)</div>
+      <div class="ramo" id="polimeroak">Material Polimerikoak</div>
+      <div class="ramo" id="inglesa">Industria Ingenieritzako Ingelesa</div>
+      <div class="ramo" id="instalazioelek">Instalazio Elektrikoak</div>
+      <div class="ramo" id="suteak">Suteen Aurkako Instalazioak</div>
+    </div>
+  </div>
+
 </div>
 
 <script>
