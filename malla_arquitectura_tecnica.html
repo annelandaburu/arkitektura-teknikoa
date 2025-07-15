@@ -1,0 +1,121 @@
+
+<!DOCTYPE html>
+<html lang="eu">
+<head>
+  <meta charset="UTF-8">
+  <title>Malla Interaktiboa - Arkitektura Teknikoa</title>
+  <style>
+    body { font-family: sans-serif; padding: 20px; background-color: #f9f9f9; }
+    h2 { margin-top: 40px; }
+    .bloque {
+      margin-bottom: 20px;
+      padding-left: 10px;
+    }
+    .ramo {
+      border: 1px solid #aaa;
+      border-radius: 6px;
+      padding: 10px 14px;
+      margin: 6px;
+      display: inline-block;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+    .aprobado {
+      background-color: #c8e6c9 !important;
+      text-decoration: line-through;
+      pointer-events: none;
+    }
+    .bloqueado {
+      background-color: #ddd !important;
+      opacity: 0.5;
+      pointer-events: none;
+    }
+    .ano1 { background-color: #a8cfff; }
+    .ano2 { background-color: #ffb3d1; }
+    .ano3 { background-color: #b3f0b3; }
+    .ano4 { background-color: #ffd699; }
+  </style>
+</head>
+<body>
+
+<h1>Malla Interaktiboa - Arkitektura Teknikoa</h1>
+
+<!-- Año 1 -->
+<div class="bloque">
+  <h2>1. Urtea - Urtekoak</h2>
+  <div class="ramo ano1" id="grafikoa1">Adierazpen Grafikoa I</div>
+  <div class="ramo ano1" id="eraikuntza1">Eraikuntza I</div>
+  <div class="ramo ano1" id="materialak1">Materialen Oinarriak I</div>
+</div>
+<div class="bloque">
+  <h2>1. Urtea - 1. Lauhilekoa</h2>
+  <div class="ramo ano1" id="fisika">Fisika Aplikatua</div>
+  <div class="ramo ano1" id="mate1">Oinarri Matematikoak I</div>
+</div>
+<div class="bloque">
+  <h2>1. Urtea - 2. Lauhilekoa</h2>
+  <div class="ramo ano1" id="ekonomia">Ekonomia</div>
+  <div class="ramo ano1" id="instalazioak1">Instalazioak I</div>
+  <div class="ramo ano1" id="mate2">Oinarri Matematikoak II</div>
+</div>
+
+<!-- Año 2 -->
+<div class="bloque">
+  <h2>2. Urtea - Urtekoak</h2>
+  <div class="ramo ano2 bloqueado" id="eraikuntza2" data-prereq="eraikuntza1">Eraikuntza II</div>
+</div>
+<div class="bloque">
+  <h2>2. Urtea - 1. Lauhilekoa</h2>
+  <div class="ramo ano2 bloqueado" id="grafikoa2" data-prereq="grafikoa1">Adierazpen Grafikoa II</div>
+  <div class="ramo ano2 bloqueado" id="egiturak1" data-prereq="fisika">Egiturak I</div>
+  <div class="ramo ano2" id="historia">Eraikuntzaren Historia</div>
+  <div class="ramo ano2 bloqueado" id="materialak2" data-prereq="materialak1">Materialak II</div>
+</div>
+<div class="bloque">
+  <h2>2. Urtea - 2. Lauhilekoa</h2>
+  <div class="ramo ano2 bloqueado" id="instalazioak2" data-prereq="instalazioak1">Instalazioak II</div>
+</div>
+
+<!-- Año 3 -->
+<div class="bloque">
+  <h2>3. Urtea - Urtekoak</h2>
+  <div class="ramo ano3 bloqueado" id="eraikuntza3" data-prereq="eraikuntza2">Eraikuntza III</div>
+</div>
+<div class="bloque">
+  <h2>3. Urtea - 1. Lauhilekoa</h2>
+  <div class="ramo ano3 bloqueado" id="egiturak2" data-prereq="egiturak1">Egiturak II</div>
+</div>
+<div class="bloque">
+  <h2>3. Urtea - 2. Lauhilekoa</h2>
+  <div class="ramo ano3 bloqueado" id="grafikoa3" data-prereq="grafikoa2">Adierazpen Grafikoa III</div>
+  <div class="ramo ano3 bloqueado" id="egiturak3" data-prereq="egiturak2">Egiturak III</div>
+</div>
+
+<!-- Año 4 -->
+<div class="bloque">
+  <h2>4. Urtea - 1. Lauhilekoa</h2>
+  <div class="ramo ano4 bloqueado" id="eraikuntza4" data-prereq="eraikuntza3">Eraikuntza IV</div>
+</div>
+
+<script>
+  document.querySelectorAll('.ramo').forEach(ramo => {
+    ramo.addEventListener('click', () => {
+      ramo.classList.add('aprobado');
+      ramo.classList.remove('bloqueado');
+      document.querySelectorAll('.ramo').forEach(other => {
+        const prereqs = other.dataset.prereq?.split(',') || [];
+        if (prereqs.length > 0) {
+          const allApproved = prereqs.every(id =>
+            document.getElementById(id)?.classList.contains('aprobado')
+          );
+          if (allApproved) {
+            other.classList.remove('bloqueado');
+          }
+        }
+      });
+    });
+  });
+</script>
+
+</body>
+</html>
